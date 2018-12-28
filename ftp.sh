@@ -45,7 +45,9 @@ sleep 1
 
 echo "Creando fichero de configuración del sitio web $pagina.kevin.gonzalonazareno.org..."
 
-ssh centos@$zapatero sudo echo "<VirtualHost *:80> > /etc/httpd/sites-available/$pagina.conf"
+ssh centos@$zapatero sudo touch /etc/httpd/sites-available/$pagina.conf
+ssh centos@$zapatero sudo chmod 646 /etc/httpd/sites-available/$pagina.conf
+ssh centos@$zapatero sudo echo "<VirtualHost *:80> >> /etc/httpd/sites-available/$pagina.conf"
 ssh centos@$zapatero sudo echo "ServerName $pagina.kevin.gonzalonazareno.org >> /etc/httpd/sites-available/$pagina.conf"
 ssh centos@$zapatero sudo echo "DocumentRoot /var/www/user_$usuario >> /etc/httpd/sites-available/$pagina.conf"
 ssh centos@$zapatero sudo echo "<Directory /var/www/user_$usuario> >> /etc/httpd/sites-available/$pagina.conf"
