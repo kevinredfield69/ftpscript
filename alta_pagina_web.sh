@@ -39,7 +39,7 @@ sleep 1
 
 echo "Cambiando propietario de la carpeta /var/www/user_$usuario ..."
 
-ssh centos@$zapatero sudo chown -R $usuario:$usuario /var/www/user_$usuario
+ssh centos@$zapatero sudo chown -R user_$usuario:user_$usuario /var/www/user_$usuario
 sleep 1
 
 #Crea el fichero de configuración de la página web a crear (Equipo Servidor Zapatero)
@@ -47,16 +47,15 @@ sleep 1
 echo "Creando fichero de configuración del sitio web $pagina.kevin.gonzalonazareno.org..."
 
 ssh centos@$zapatero sudo touch /etc/httpd/sites-available/$pagina.conf
-ssh centos@$zapatero sudo chown -R $usuario:$usuario /var/www/user_$usuario
 ssh centos@$zapatero sudo chmod 646 /etc/httpd/sites-available/$pagina.conf
 ssh centos@$zapatero sudo echo "<VirtualHost *:80>  >> /etc/httpd/sites-available/$pagina.conf"
 ssh centos@$zapatero sudo echo "ServerName $pagina.kevin.gonzalonazareno.org >> /etc/httpd/sites-available/$pagina.conf"
 ssh centos@$zapatero sudo echo "DocumentRoot /var/www/user_$usuario >> /etc/httpd/sites-available/$pagina.conf"
-#ssh centos@$zapatero sudo echo "<Directory /var/www/user_$usuario>  >> /etc/httpd/sites-available/$pagina.conf"
-#ssh centos@$zapatero sudo echo "Options Indexes SymLinksIfOwnerMatch >> /etc/httpd/sites-available/$pagina.conf"
-#ssh centos@$zapatero sudo echo "AllowOverride None >> /etc/httpd/sites-available/$pagina.conf"
-#ssh centos@$zapatero sudo echo "Require all granted >> /etc/httpd/sites-available/$pagina.conf"
-#ssh centos@$zapatero sudo echo "</Directory>  >> /etc/httpd/sites-available/$pagina.conf"
+ssh centos@$zapatero sudo echo "<Directory /var/www/user_$usuario>  >> /etc/httpd/sites-available/$pagina.conf"
+ssh centos@$zapatero sudo echo "Options Indexes SymLinksIfOwnerMatch >> /etc/httpd/sites-available/$pagina.conf"
+ssh centos@$zapatero sudo echo "AllowOverride None >> /etc/httpd/sites-available/$pagina.conf"
+ssh centos@$zapatero sudo echo "Require all granted >> /etc/httpd/sites-available/$pagina.conf"
+ssh centos@$zapatero sudo echo "</Directory>  >> /etc/httpd/sites-available/$pagina.conf"
 ssh centos@$zapatero sudo echo "</VirtualHost>  >> /etc/httpd/sites-available/$pagina.conf"
 
 #Activa el sitio web (Equipo Servidor Zapatero)
@@ -76,4 +75,4 @@ sleep 2
 
 #Asignar contraseña al usuario creado (Equipo Servidor Zapatero)
 
-ssh centos@$zapatero sudo passwd $usuario
+ssh centos@$zapatero sudo passwd user_$usuario
